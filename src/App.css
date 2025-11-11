@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+.navLink {
+  transition: background-color 0.4s ease;
+}
+
+.navLink:hover {
+  background-color: #cfedfd;
+}
