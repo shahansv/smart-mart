@@ -15,8 +15,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className='px-4 pt-2 fixed w-full'>
-        <div className='bg-sky-200 h-16 rounded-full px-8 flex items-center justify-between' >
+      <nav className='px-4 pt-2 fixed w-full z-50'>
+        <div className='h-16 rounded-full px-8 flex items-center justify-between shadow bg-white' >
           <Link to={'/'}>
             <img src="./smartMartLogo.svg" alt="smart mart logo" className='h-8' />
           </Link>

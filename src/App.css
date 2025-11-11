@@ -10,3 +10,11 @@
 .navLink:hover {
   background-color: #cfedfd;
 }
+
+.btnSky {
+  transition: background-color 0.4s ease;
+}
+
+.btnSky:hover{
+  background-color: #8ad4fc;
+}
