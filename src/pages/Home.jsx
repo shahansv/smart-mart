@@ -13,8 +13,6 @@ const Home = () => {
     });
   });
 
-
-
   return (
     <>
       <div className="pt-5 px-3 mt-7 text-center homeCard">

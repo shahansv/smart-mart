@@ -15,6 +15,6 @@
   transition: background-color 0.4s ease;
 }
 
-.btnSky:hover{
+.btnSky:hover {
   background-color: #8ad4fc;
 }
