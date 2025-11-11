@@ -28,6 +28,7 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
+      <div className='h-20 border'></div>
     </>
   )
 }
