@@ -27,7 +27,6 @@ const Navbar = () => {
             <li className='font-bold text-sky-700'><Link className='navLink px-3 py-2 rounded-full' to={'/history'}>History</Link></li>
           </ul>
         </div>
-
       </nav>
     </>
   )
