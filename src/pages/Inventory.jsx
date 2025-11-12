@@ -376,7 +376,7 @@ const Inventory = () => {
                 ) : (
                   <>
                     <tr>
-                      <td>hajs</td>
+                      <td colSpan={5} className="text-center text-red-500 text-lg font-bold">No Products Added</td>
                     </tr>
                   </>
                 )}
