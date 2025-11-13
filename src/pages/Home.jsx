@@ -39,7 +39,7 @@ const Home = () => {
               </p>
               <Link
                 to={"/inventory"}
-                className="btn bg-sky-200 border-0 mt-auto mb-2 rounded-full shadow btnSky text-sky-600"
+                className="btn btn-soft btn-info m-2 hover:text-white hover:bg-sky-400 border-0 rounded-2xl mt-auto bg-sky-200 text-sky-600"
               >
                 Go to Inventory
               </Link>
@@ -55,7 +55,7 @@ const Home = () => {
               </p>
               <Link
                 to={"/billing"}
-                className="btn bg-sky-200 border-0 mt-auto mb-2 rounded-full shadow btnSky text-sky-600"
+                className="btn btn-soft btn-info m-2 hover:text-white hover:bg-sky-400 border-0 rounded-2xl mt-auto bg-sky-200 text-sky-600"
               >
                 Go to Billing
               </Link>
@@ -71,7 +71,7 @@ const Home = () => {
               </p>
               <Link
                 to={"/history"}
-                className="btn bg-sky-200 border-0 mt-auto mb-2 rounded-full shadow btnSky text-sky-600"
+                className="btn btn-soft btn-info m-2 hover:text-white hover:bg-sky-400 border-0 rounded-2xl mt-auto bg-sky-200 text-sky-600"
               >
                 View Bills
               </Link>

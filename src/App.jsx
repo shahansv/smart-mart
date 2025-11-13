@@ -12,13 +12,13 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/inventory' element={<Inventory />} />
-        <Route path='/billing' element={<Billing />} />
-        <Route path='/history' element={<History />} />
-      </Routes >
+        <Route path="/" element={<Home />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/billing" element={<Billing />} />
+        <Route path="/history" element={<History />} />
+      </Routes>
     </>
-  )
+  );
 }
 
 export default App
