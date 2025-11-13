@@ -9,6 +9,12 @@ const Billing = () => {
     product: [],
   });
 
+  const removeLastAddedProduct = () => {
+    setPurchasedProduct((last) => ({
+      product: last.product.slice(0, -1),
+    }));
+  };
+
   return (
     <>
       <h1 className="font-medium text-4xl text-center m-6 text-sky-600 homeCard ">
@@ -53,6 +59,22 @@ const Billing = () => {
         <div className="flex flex-col items-center bg-white rounded-2xl border-base-100 shadow homeCard h-fit p-4 col-span-1 w-full">
           <BillPreview purchasedProduct={purchasedProduct} />
         </div>
+      </div>
+      <div className="pe-10 text-end homeCard">
+        <button
+          className="btn btn-soft btn-warning hover:text-amber-50 hover:bg-amber-300 border-0 rounded-2xl"
+          onClick={removeLastAddedProduct}
+        >
+          <svg
+            className="size-[1.2em]"
+            viewBox="0 0 24 24"
+            fill="#1C274C"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M18.22,17H9.8a2,2,0,0,1-2-1.55L5.2,4H3A1,1,0,0,1,3,2H5.2a2,2,0,0,1,2,1.55L9.8,15h8.42L20,7.76A1,1,0,0,1,22,8.24l-1.81,7.25A2,2,0,0,1,18.22,17ZM16.5,19A1.5,1.5,0,1,0,18,20.5,1.5,1.5,0,0,0,16.5,19Zm-5,0A1.5,1.5,0,1,0,13,20.5,1.5,1.5,0,0,0,11.5,19ZM18,8a1,1,0,0,0-1-1H11a1,1,0,0,0,0,2h6A1,1,0,0,0,18,8Z" />
+          </svg>
+          Remove Last Product
+        </button>
       </div>
     </>
   );
