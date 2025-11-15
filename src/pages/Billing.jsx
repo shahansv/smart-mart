@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BillProductList from "../components/BillProductList";
 import BillPreview from "../components/BillPreview";
 import { saveInvoice, updateQuantity } from "../services/allApi";
+import Swal from "sweetalert2";
 
 const Billing = () => {
   const [purchasedProduct, setPurchasedProduct] = useState({
@@ -29,7 +30,13 @@ const Billing = () => {
   const saveAndDownloadInvoice = async () => {
     let apiResponse = await saveInvoice(purchasedProduct);
     console.log(apiResponse.status);
-    setPurchasedProduct({ product: [] });
+    if (apiResponse.status == 201) {
+      setPurchasedProduct({ product: [] });
+      Swal.fire({
+        icon: "success",
+        title: "Invoice Created",
+      });
+    }
   };
 
   return (
