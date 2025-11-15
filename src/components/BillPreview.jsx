@@ -4,17 +4,19 @@ const BillPreview = ({ purchasedProduct }) => {
   const [totalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
-    const totalAmount = purchasedProduct.product.reduce(
+    setTotalCost(calculateTotal());
+  }, [purchasedProduct]);
+
+  const calculateTotal = () => {
+    return purchasedProduct.product.reduce(
       (acc, curr) => acc + Number(curr.productPrice),
       0
     );
-
-    setTotalCost(totalAmount);
-  }, [purchasedProduct]);
+  };
 
   return (
     <>
-      <div className="border border-base-300 m-3 min-h-110 w-full p-10">
+      <div className="border border-base-300  min-h-110 w-full p-10 bg-white rounded-2xl shadow-xl ">
         <div className="flex justify-between">
           <h1 className="text-4xl font-semibold">Invoice</h1>
           <img

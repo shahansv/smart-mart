@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 import BillProductList from "../components/BillProductList";
 import BillPreview from "../components/BillPreview";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
+import { saveInvoice, updateQuantity } from "../services/allApi";
 
 const Billing = () => {
   const [purchasedProduct, setPurchasedProduct] = useState({
     product: [],
   });
 
+  const removedProductQuantityUpdate = async (lastProduct) => {
+    let reqBody = { productQuantity: lastProduct.productQuantity };
+    let apiResponse = await updateQuantity(lastProduct.id, reqBody);
+    console.log(apiResponse.status);
+  };
+
   const removeLastAddedProduct = () => {
-    setPurchasedProduct((last) => ({
-      product: last.product.slice(0, -1),
-    }));
+    const current = purchasedProduct;
+    const lastProduct = current.product[current.product.length - 1];
+    removedProductQuantityUpdate(lastProduct);
+    const updatedList = current.product.slice(0, -1);
+
+    setPurchasedProduct({
+      ...current,
+      product: updatedList,
+    });
+  };
+
+  const saveAndDownloadInvoice = async () => {
+    let apiResponse = await saveInvoice(purchasedProduct);
+    console.log(apiResponse.status);
+    setPurchasedProduct({ product: [] });
   };
 
   return (
@@ -24,7 +41,10 @@ const Billing = () => {
       <div className="pe-10 text-end homeCard h-8">
         {purchasedProduct.product.length > 0 ? (
           <>
-            <button className="btn btn-soft btn-info hover:text-white hover:bg-sky-400 border-0 rounded-2xl">
+            <button
+              className="btn btn-soft btn-info hover:text-white hover:bg-sky-400 border-0 rounded-2xl"
+              onClick={saveAndDownloadInvoice}
+            >
               <svg
                 className="size-[1.2em]"
                 viewBox="0 0 24 24"
@@ -48,7 +68,7 @@ const Billing = () => {
                   ></path>
                 </g>
               </svg>
-              Download invoice
+              Save & Download invoice
             </button>
           </>
         ) : (
@@ -82,6 +102,7 @@ const Billing = () => {
             </svg>
             Remove Last Product
           </button>
+          {/* <button onClick={} className="btn">check btn</button> */}
         </div>
       ) : (
         <></>

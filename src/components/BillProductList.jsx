@@ -1,7 +1,8 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import React, { useEffect, useState } from "react";
-import { displayProducts } from "../services/allApi";
+import { displayProducts, reduceQuantity } from "../services/allApi";
+import Swal from "sweetalert2";
 
 const BillProductList = ({ purchasedProduct, setPurchasedProduct }) => {
   const [allProducts, setAllProducts] = useState([]);
@@ -26,19 +27,40 @@ const BillProductList = ({ purchasedProduct, setPurchasedProduct }) => {
       setAllProducts(apiResponse.data);
       setDisplayProductInTable(apiResponse.data);
     } else {
-      console.log("ERROR! Could not display product");
+      Swal.fire({
+        icon: "error",
+        title: "ERROR!",
+        text: "Could not display product",
+      });
     }
   };
 
   const searchProduct = (search) => {
     const searchedProduct = search.toLowerCase().trim();
-    const filtered = allProducts.filter((item) =>
-      item.productName.toLowerCase().includes(searchedProduct)
+    const filtered = allProducts.filter((eachProduct) =>
+      eachProduct.productName.toLowerCase().includes(searchedProduct)
     );
     setDisplayProductInTable(filtered);
   };
 
+  const reduceQuantityFromInventory = async (cartProducts) => {
+    if (cartProducts.productQuantity > 0) {
+      let reqBody = {
+        productQuantity: cartProducts.productQuantity - 1,
+      };
+      await reduceQuantity(cartProducts.id, reqBody);
+      addToCart(cartProducts);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops",
+        text: "The Product is out of stock!",
+      });
+    }
+  };
+
   const addToCart = (cartProducts) => {
+    displayProductTable();
     setPurchasedProduct({
       ...purchasedProduct,
       product: [...purchasedProduct.product, cartProducts],
@@ -120,7 +142,9 @@ const BillProductList = ({ purchasedProduct, setPurchasedProduct }) => {
                         <td>
                           <button
                             className="btn btn-soft btn-info m-2 hover:text-white hover:bg-sky-400 border-0 rounded-2xl"
-                            onClick={() => addToCart(eachProduct)}
+                            onClick={() =>
+                              reduceQuantityFromInventory(eachProduct)
+                            }
                           >
                             <svg
                               viewBox="0 0 24 24"
