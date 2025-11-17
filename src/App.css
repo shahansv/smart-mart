@@ -2,11 +2,3 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-
-.btnSky {
-  transition: background-color 0.4s ease;
-}
-
-.btnSky:hover {
-  background-color: #8ad4fc;
-}

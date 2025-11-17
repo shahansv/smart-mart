@@ -16,12 +16,11 @@ const Home = () => {
   return (
     <>
       <div className="pt-5 px-3 mt-7 text-center homeCard">
-        <h1 className="text-3xl md:text-4xl font-bold my-5 text-sky-600">
+        <h1 className="text-3xl md:text-4xl font-bold my-3 text-sky-600">
           Welcome to SmartMart
         </h1>
         <p className="font-semibold">
-          Manage your store efficiently — handle inventory, create bills, and
-          track sales all in one place.
+          Manage your store efficiently
         </p>
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-3">
           <div className="p-6">
@@ -67,7 +66,7 @@ const Home = () => {
               <img src="./history.svg" alt="history" className="h-20 my-3" />
               <h2 className="text-2xl font-medium text-sky-600">View Bills</h2>
               <p className="my-2">
-                Check previous bills and daily sales reports.
+                Check previous bills.
               </p>
               <Link
                 to={"/history"}

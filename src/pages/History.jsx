@@ -3,6 +3,7 @@ import { getSavedInvoice } from "../services/allApi";
 import BillPreview from "../components/BillPreview";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Swal from "sweetalert2";
 
 const History = () => {
   const [invoiceData, setInvoiceData] = useState([]);
@@ -21,8 +22,16 @@ const History = () => {
   });
 
   const displayInvoiceData = async () => {
-    const apiResponse = await getSavedInvoice();
-    setInvoiceData(apiResponse.data);
+    try {
+      const apiResponse = await getSavedInvoice();
+      setInvoiceData(apiResponse.data);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "ERROR!",
+        text: "Failed to get invoice data",
+      });
+    }
   };
 
   return (

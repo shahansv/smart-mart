@@ -32,63 +32,87 @@ const Inventory = () => {
   });
 
   const displayProductTable = async () => {
-    let apiResponse = await displayProducts();
-    if (apiResponse.status == 200) {
-      setDisplayProductInTable(apiResponse.data);
-    } else {
-      console.log("ERROR! Could not display product");
+    try {
+      let apiResponse = await displayProducts();
+      if (apiResponse.status == 200) {
+        setDisplayProductInTable(apiResponse.data);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "ERROR!",
+          text: "Failed to get product details",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "ERROR!",
+        text: "Failed to get product details",
+      });
     }
   };
 
   const addNewProduct = async () => {
-    if (inputProductName.trim() == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Add product name",
-      });
-    } else if (inputProductBrand.trim() == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Add product brand",
-      });
-    } else if (inputProductPrice.trim() == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Add product price",
-      });
-    } else if (inputProductQuantity.trim() == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Add product quantity",
-      });
-    } else if (inputProductImageURL.trim() == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Add product image url",
-      });
-    } else {
-      let reqBody = {
-        productName: inputProductName,
-        productBrand: inputProductBrand,
-        productPrice: inputProductPrice,
-        productQuantity: inputProductQuantity,
-        productImageURL: inputProductImageURL,
-      };
-      let apiResponse = await addProduct(reqBody);
-      if (apiResponse.status == 201) {
-        console.log("success");
-        displayProductTable();
-        setInputProductName("");
-        setInputProductBrand("");
-        setInputProductPrice("");
-        setInputProductQuantity("");
-        setInputProductImageURL("");
-      } else {
+    try {
+      if (inputProductName.trim() == "") {
         Swal.fire({
           icon: "error",
-          title: "ERROR! Could not add product",
+          title: "Add product name",
         });
+      } else if (inputProductBrand.trim() == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Add product brand",
+        });
+      } else if (inputProductPrice.trim() == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Add product price",
+        });
+      } else if (inputProductQuantity.trim() == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Add product quantity",
+        });
+      } else if (inputProductImageURL.trim() == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Add product image url",
+        });
+      } else {
+        let reqBody = {
+          productName: inputProductName,
+          productBrand: inputProductBrand,
+          productPrice: inputProductPrice,
+          productQuantity: inputProductQuantity,
+          productImageURL: inputProductImageURL,
+        };
+        let apiResponse = await addProduct(reqBody);
+        if (apiResponse.status == 201) {
+          displayProductTable();
+          setInputProductName("");
+          setInputProductBrand("");
+          setInputProductPrice("");
+          setInputProductQuantity("");
+          setInputProductImageURL("");
+          Swal.fire({
+            icon: "success",
+            title: "Product Added",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "ERROR! Failed to add Product",
+          });
+        }
       }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "ERROR",
+        text: "ERROR! Failed to add Product",
+      });
     }
   };
 
@@ -102,45 +126,63 @@ const Inventory = () => {
   };
 
   const editThisProduct = async () => {
-    let editProductObj = {
-      productName: inputProductName,
-      productBrand: inputProductBrand,
-      productPrice: inputProductPrice,
-      productQuantity: inputProductQuantity,
-      productImageURL: inputProductImageURL,
-    };
-    let apiResponse = await editProduct(editId, editProductObj);
-    if (apiResponse.status == 200) {
-      Swal.fire({
-        icon: "success",
-        title: "Product details edited",
-      });
-      setInputProductName("");
-      setInputProductBrand("");
-      setInputProductPrice("");
-      setInputProductQuantity("");
-      setInputProductImageURL("");
-      setEditId(null);
-    } else {
+    try {
+      let editProductObj = {
+        productName: inputProductName,
+        productBrand: inputProductBrand,
+        productPrice: inputProductPrice,
+        productQuantity: inputProductQuantity,
+        productImageURL: inputProductImageURL,
+      };
+      let apiResponse = await editProduct(editId, editProductObj);
+      if (apiResponse.status == 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Product details edited",
+        });
+        setInputProductName("");
+        setInputProductBrand("");
+        setInputProductPrice("");
+        setInputProductQuantity("");
+        setInputProductImageURL("");
+        setEditId(null);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "ERROR",
+          text: "Failed edit product details",
+        });
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "ERROR! Could not edit product details",
+        title: "ERROR",
+        text: "Failed edit product details",
       });
     }
   };
 
   const deleteThisProduct = async (id) => {
-    let apiResponse = await deleteProduct(id);
-    if (apiResponse.status == 200) {
-      Swal.fire({
-        icon: "success",
-        title: "Product deleted",
-      });
-      displayProductTable();
-    } else {
+    try {
+      let apiResponse = await deleteProduct(id);
+      if (apiResponse.status == 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Product deleted",
+        });
+        displayProductTable();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "ERROR",
+          text: "Failed to delete product",
+        });
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "ERROR! Could not delete product",
+        title: "ERROR",
+        text: "Failed to delete product",
       });
     }
   };

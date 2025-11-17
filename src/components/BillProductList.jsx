@@ -22,15 +22,23 @@ const BillProductList = ({ purchasedProduct, setPurchasedProduct }) => {
   });
 
   const displayProductTable = async () => {
-    let apiResponse = await displayProducts();
-    if (apiResponse.status == 200) {
-      setAllProducts(apiResponse.data);
-      setDisplayProductInTable(apiResponse.data);
-    } else {
+    try {
+      let apiResponse = await displayProducts();
+      if (apiResponse.status == 200) {
+        setAllProducts(apiResponse.data);
+        setDisplayProductInTable(apiResponse.data);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "ERROR!",
+          text: "Failed to fetch products",
+        });
+      }
+    } catch (error) {
       Swal.fire({
         icon: "error",
         title: "ERROR!",
-        text: "Could not display product",
+        text: "Failed to fetch products",
       });
     }
   };
@@ -44,27 +52,36 @@ const BillProductList = ({ purchasedProduct, setPurchasedProduct }) => {
   };
 
   const reduceQuantityFromInventory = async (cartProducts) => {
-    if (cartProducts.productQuantity > 0) {
-      let reqBody = {
-        productQuantity: cartProducts.productQuantity - 1,
-      };
-      await reduceQuantity(cartProducts.id, reqBody);
-      addToCart(cartProducts);
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops",
-        text: "The Product is out of stock!",
-      });
+    try {
+      if (cartProducts.productQuantity > 0) {
+        let reqBody = {
+          productQuantity: cartProducts.productQuantity - 1,
+        };
+        await reduceQuantity(cartProducts.id, reqBody);
+        addToCart(cartProducts);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops",
+          text: "The Product is out of stock!",
+        });
+      }
+    } catch (error) {
+       Swal.fire({
+         icon: "error",
+         title: "Oops",
+         text: "The Product is out of stock!",
+       });
     }
+    
   };
 
   const addToCart = (cartProducts) => {
-    displayProductTable();
     setPurchasedProduct({
       ...purchasedProduct,
       product: [...purchasedProduct.product, cartProducts],
     });
+    displayProductTable();
   };
 
   return (
