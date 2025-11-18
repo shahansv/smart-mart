@@ -111,7 +111,7 @@ const Billing = () => {
                     ></path>
                   </g>
                 </svg>
-                Save & Download invoice
+                Save invoice
               </button>
             </div>
           </>
